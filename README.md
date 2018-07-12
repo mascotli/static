@@ -1,1 +1,1 @@
-# static.github.io
+# static.mascotli.github.io
