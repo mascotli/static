@@ -93,14 +93,16 @@ def decode_ss_node(nodes):
                 info['port'] = matcher.group(3)
             else:
                 continue
-            matcher = re.match(r'(.*?):(.*)', safe_decode(param).decode('utf-8'))
+            matcher = re.match(
+                r'(.*?):(.*)', safe_decode(param).decode('utf-8'))
             if matcher:
                 info['method'] = matcher.group(1)
                 info['password'] = matcher.group(2)
             else:
                 continue
         else:
-            matcher = re.match(r'(.*?):(.*)@(.*):(.*)', safe_decode(param).decode('utf-8'))
+            matcher = re.match(r'(.*?):(.*)@(.*):(.*)',
+                               safe_decode(param).decode('utf-8'))
             if matcher:
                 info['method'] = matcher.group(1)
                 info['password'] = matcher.group(2)
@@ -181,7 +183,8 @@ def get_proxies(urls):
                 log('clash节点提取失败,clash节点为空')
                 continue
             for node in tmp_list:
-                node['name'] = node['name'].strip() if node.get('name') else None
+                node['name'] = node['name'].strip(
+                ) if node.get('name') else None
                 # 对clashR的支持
                 if node.get('protocolparam'):
                     node['protocol-param'] = node['protocolparam']
@@ -387,7 +390,8 @@ def save_config(path, data):
     :param data:
     :return:
     """
-    config = yaml.dump(data, sort_keys=False, default_flow_style=False, encoding='utf-8', allow_unicode=True)
+    config = yaml.dump(data, sort_keys=False, default_flow_style=False,
+                       encoding='utf-8', allow_unicode=True)
     save_to_file(path, config)
     log('成功更新{}个节点'.format(len(data['proxies'])))
 
@@ -401,7 +405,8 @@ if __name__ == '__main__':
     # 输出路径
     # output_path = './output.yaml'
     from config import BASE_DIR
-    output_path = BASE_DIR + '/result/freefq/output_' + datetime.datetime.now().strftime('%Y-%m-%d') + '.yaml'
+    output_path = BASE_DIR + '/result/freefq/output_' + \
+        datetime.datetime.now().strftime('%Y-%m-%d') + '.yaml'
     # 规则策略
     config_url = 'https://cdn.jsdelivr.net/gh/Celeter/convert2clash@master/config.yaml'
     config_path = './config.yaml'
